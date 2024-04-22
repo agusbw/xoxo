@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import type { CellValue, CurrentPlayerValue, WinnerValue } from './types';
-import { checkWinner } from './utils/helpers';
+import { useState, useEffect } from "react";
+import type { CellValue, CurrentPlayerValue, WinnerValue } from "./types";
+import { checkWinner } from "./utils/helpers";
 
 const boardDefaultState = [
   [null, null, null],
@@ -20,10 +20,10 @@ type BoardCellProps = React.HTMLAttributes<HTMLDivElement> & {
 function BoardCell({ value, ...props }: BoardCellProps) {
   return (
     <div
-      className="border border-black w-full h-full flex items-center justify-center"
+      className="flex items-center justify-center w-full h-full border border-black"
       {...props}
     >
-      {value === null ? '' : value === 1 ? 'X' : '0'}
+      {value === null ? "" : value === 1 ? "X" : "0"}
     </div>
   );
 }
@@ -69,7 +69,7 @@ function GameBoard({
       }
       setFinish(true);
     }
-  }, [board]);
+  }, [board, handleSetScore, handleSetWinner]);
 
   function handleCellClick(rowIndex: number, colIndex: number) {
     if (board[rowIndex][colIndex] !== null || finish) return;
@@ -86,25 +86,52 @@ function GameBoard({
     <>
       <div
         className={`grid grid-cols-3 grid-rows-3 w-[300px] h-[300px] ${
-          finish ? 'cursor-not-allowed' : 'cursor-pointer'
+          finish ? "cursor-not-allowed" : "cursor-pointer"
         }`}
       >
-        <BoardCell value={board[0][0]} onClick={() => handleCellClick(0, 0)} />
-        <BoardCell value={board[1][0]} onClick={() => handleCellClick(1, 0)} />
-        <BoardCell value={board[2][0]} onClick={() => handleCellClick(2, 0)} />
+        <BoardCell
+          value={board[0][0]}
+          onClick={() => handleCellClick(0, 0)}
+        />
+        <BoardCell
+          value={board[1][0]}
+          onClick={() => handleCellClick(1, 0)}
+        />
+        <BoardCell
+          value={board[2][0]}
+          onClick={() => handleCellClick(2, 0)}
+        />
 
-        <BoardCell value={board[0][1]} onClick={() => handleCellClick(0, 1)} />
-        <BoardCell value={board[1][1]} onClick={() => handleCellClick(1, 1)} />
-        <BoardCell value={board[2][1]} onClick={() => handleCellClick(2, 1)} />
+        <BoardCell
+          value={board[0][1]}
+          onClick={() => handleCellClick(0, 1)}
+        />
+        <BoardCell
+          value={board[1][1]}
+          onClick={() => handleCellClick(1, 1)}
+        />
+        <BoardCell
+          value={board[2][1]}
+          onClick={() => handleCellClick(2, 1)}
+        />
 
-        <BoardCell value={board[0][2]} onClick={() => handleCellClick(0, 2)} />
-        <BoardCell value={board[1][2]} onClick={() => handleCellClick(1, 2)} />
-        <BoardCell value={board[2][2]} onClick={() => handleCellClick(2, 2)} />
+        <BoardCell
+          value={board[0][2]}
+          onClick={() => handleCellClick(0, 2)}
+        />
+        <BoardCell
+          value={board[1][2]}
+          onClick={() => handleCellClick(1, 2)}
+        />
+        <BoardCell
+          value={board[2][2]}
+          onClick={() => handleCellClick(2, 2)}
+        />
       </div>
       {finish && (
-        <div className="flex gap-3 mt-2 w-full">
+        <div className="flex w-full gap-3 mt-2">
           <button
-            className="px-3 py-2 bg-red-600 text-white font-semibold hover:bg-red-700 flex-1"
+            className="flex-1 px-3 py-2 font-semibold text-white bg-red-600 hover:bg-red-700"
             onClick={() => {
               setBoard(boardDefaultState);
               handleSetWinner(null);
@@ -116,7 +143,7 @@ function GameBoard({
             Reset Score
           </button>
           <button
-            className="px-3 py-2 bg-green-600 text-white font-semibold hover:bg-green-700 flex-1"
+            className="flex-1 px-3 py-2 font-semibold text-white bg-green-600 hover:bg-green-700"
             onClick={() => {
               setBoard(boardDefaultState);
               handleSetWinner(null);
@@ -140,16 +167,16 @@ function App() {
   const [currentPlayer, setCurrentPlayer] = useState<CurrentPlayerValue>(1);
 
   return (
-    <main className="h-screen w-screen flex pt-10 justify-center">
+    <main className="flex justify-center w-screen pt-20">
       <div className="text-center">
         <h1 className="text-3xl font-semibold">Tic-Tac-Toe</h1>
-        <div className="flex text-lg justify-center items-center  font-semibold gap-1 my-2">
-          <p className="p-2 bg-purple-600 text-white">
-            Player One [{score.player1}]{' '}
-          </p>{' '}
+        <div className="flex items-center justify-center gap-1 my-2 text-lg font-semibold">
+          <p className="p-2 text-white bg-purple-600">
+            Player One [{score.player1}]{" "}
+          </p>{" "}
           -
-          <p className="p-2 bg-cyan-600 text-white">
-            {' '}
+          <p className="p-2 text-white bg-cyan-600">
+            {" "}
             [{score.player2}] Player Two
           </p>
         </div>
@@ -157,10 +184,10 @@ function App() {
           {winner === null && (
             <p
               className={`font-semibold ${
-                currentPlayer === 1 ? 'text-purple-600' : 'text-cyan-600'
+                currentPlayer === 1 ? "text-purple-600" : "text-cyan-600"
               }`}
             >
-              Player {currentPlayer === 1 ? 'One' : 'Two'} turn!
+              Player {currentPlayer === 1 ? "One" : "Two"} turn!
             </p>
           )}
           {winner === 3 ? (
@@ -168,7 +195,7 @@ function App() {
           ) : null}
           {winner === 1 || winner === 2 ? (
             <p className="font-semibold text-green-600">
-              Player {winner === 1 ? 'One' : 'Two'} Win!
+              Player {winner === 1 ? "One" : "Two"} Win!
             </p>
           ) : null}
         </div>
